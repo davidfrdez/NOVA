@@ -1,0 +1,22 @@
+{
+  "name": "Productos Core",
+  "owner": "Equipo Catálogo",
+  "baseUrl": "https://dev.orange.es/products",
+  "productionUrl": "https://api.orange.es/products",
+  "testPort": 5043,
+  "description": "API de catálogo de productos MasOrange España",
+  "endpoints": [
+    {
+      "name": "items",
+      "path": "/items",
+      "httpMethod": "GET",
+      "description": "Lista de productos disponibles"
+    },
+    {
+      "name": "items",
+      "path": "/items",
+      "httpMethod": "POST",
+      "description": "Creación de un nuevo producto"
+    }
+  ]
+}
