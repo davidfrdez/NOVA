@@ -6,11 +6,13 @@ Arquitectura orientada a dominios con proyectos separados para Domain, Applicati
 
 ```
 backend/
+  Portal.Backend.sln        -> Solución de Visual Studio que referencia los cuatro proyectos.
   src/
     Portal.Domain/          -> Entidades de dominio y agregados (ApiDefinition, ApiEndpoint).
     Portal.Application/     -> Casos de uso, DTOs y servicios (ApiCatalogService).
     Portal.Infrastructure/  -> Implementaciones técnicas (repositorio en memoria, HttpClient tester).
     Portal.Api/             -> Minimal APIs en ASP.NET Core 8 + Swagger extendido.
+  packet/                   -> Caché local para paquetes NuGet y manifiesto offline.
   examples/                 -> JSON de ejemplo para registros y pruebas.
 ```
 
@@ -32,6 +34,28 @@ Se habilita mediante `AddCustomSwagger` en `Program.cs`, generando documentació
 2. Agregar payloads de prueba asociados a endpoints críticos.
 3. Ejecutar las pruebas para validar conectividad y contratos.
 4. Consultar Swagger UI para ver documentación generada automáticamente.
+
+## Restauración sin conexión
+
+El directorio `packet/` contiene un manifiesto (`manifest.json`) con los paquetes NuGet
+requeridos para compilar el backend fuera de línea: `Microsoft.Extensions.DependencyInjection.Abstractions` y
+`Microsoft.Extensions.Http`, ambos en la versión `8.0.0`. Descarga las dependencias en un equipo con
+internet usando el cliente de NuGet y cópialas a `backend/packet/`:
+
+```bash
+nuget install Microsoft.Extensions.DependencyInjection.Abstractions -Version 8.0.0 -OutputDirectory backend/packet
+nuget install Microsoft.Extensions.Http -Version 8.0.0 -OutputDirectory backend/packet
+```
+
+Una vez en el entorno sin conexión, utiliza el `offline.nuget.config` incluido para forzar la restauración
+contra el feed local:
+
+```bash
+DOTNET_OFFLINE_SOURCE=$(pwd)/backend/packet
+dotnet restore backend/Portal.Backend.sln --configfile backend/packet/offline.nuget.config --source "$DOTNET_OFFLINE_SOURCE" --ignore-failed-sources
+```
+
+El archivo `backend/packet/README.md` detalla estos pasos y cómo limpiar la caché local al finalizar.
 
 ## Extensiones futuras sugeridas
 

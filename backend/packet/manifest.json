@@ -1,0 +1,12 @@
+{
+  "packages": [
+    {
+      "id": "Microsoft.Extensions.DependencyInjection.Abstractions",
+      "version": "8.0.0"
+    },
+    {
+      "id": "Microsoft.Extensions.Http",
+      "version": "8.0.0"
+    }
+  ]
+}
