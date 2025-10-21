@@ -6,6 +6,7 @@ Arquitectura orientada a dominios con proyectos separados para Domain, Applicati
 
 ```
 backend/
+  Portal.Backend.sln        -> Solución de Visual Studio que referencia los cuatro proyectos.
   src/
     Portal.Domain/          -> Entidades de dominio y agregados (ApiDefinition, ApiEndpoint).
     Portal.Application/     -> Casos de uso, DTOs y servicios (ApiCatalogService).
