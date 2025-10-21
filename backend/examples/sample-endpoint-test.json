@@ -1,0 +1,6 @@
+{
+  "endpointName": "items",
+  "httpMethod": "POST",
+  "relativePathOverride": "/items",
+  "jsonBody": "{\n  \"sku\": \"P-0001\",\n  \"name\": \"Fibra 1Gb\",\n  \"price\": 39.9\n}"
+}
